@@ -1,0 +1,85 @@
+#Basic configuration
+experiment_name: testing4
+checkpoint_dir: null
+cpu: 7 #int, number of cpu cores to be used
+gpu: 0.5 #between 0 and 1
+seed: 1
+
+#Trial stopper configuration based on evaluation loss
+stopper:
+    std: 1.0e-6
+    num_results: 8
+    grace_period: 20
+
+#FL system config
+fed_config:
+    communication_rounds: 70
+    n_clients: 11
+    frac_num_local_samples_from_central: 1.0
+
+#Federated protocol specific config
+fed_protocol_instance: FairFedAvgALM
+
+FedAvg:
+    C: 1.0
+    grad_clip: 1.0
+
+FairFedAvgALM:
+    C: 1.0
+    grad_clip: 1.0
+    b: 1.05
+    beta: 5.0
+    eta: 2.0 #learning rate of lambda
+    lam: 0.0
+
+FedAvgFairALM:
+    C: 1.0
+    grad_clip: 1.0
+    b: 1.01
+    eta: 1.0 #learning rate of lambda
+    lam: 0.0
+
+FairFed:
+    C: 1.0
+    grad_clip: 1.0
+    beta: 0.2
+
+FPFL:
+    C: 1.0
+    grad_clip: 1.0
+    beta: 5.0
+    eta: 2.0
+
+#Dataset config
+dataset_config:
+    dataset_dir: ../../../../dataset/
+    dataset_name: CelebA 
+    alpha: 1.0 #Dirichlet parameter
+    label_attr: Attractive
+    protected_attr: Male
+    batch_size: 128
+    pos_label: 1
+    neg_label: 0
+
+#Local optimizer config
+optimizer_config:
+    learning_rate: 0.01 #\eta_w
+    step_size: 25 #LR scheduler step size (unit: round)
+    gamma: 0.1 #LR scheduler step factor
+
+#supported ray tune iterables
+iterables:
+    seed: null #[1,2,3]
+    sigma_dp: null 
+    lr: null #of w
+    alpha: null
+    beta: null
+
+
+
+
+
+
+
+
+
